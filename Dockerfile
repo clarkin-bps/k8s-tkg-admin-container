@@ -17,7 +17,7 @@ LABEL tkg.version="1.2.1" \
 
 # Update container and install tools
 RUN apt-get update && \
-    apt-get install -y curl openssh-client && \
+    apt-get install -y curl openssh-client nano && \
 	curl -L https://dl.bintray.com/larkinc/generic/tkg-kctl-tools.tar.gz | tar xvzf -  && \
 	chmod +x ./imgpkg && \
 	mv ./imgpkg /usr/local/bin/imgpkg && \
