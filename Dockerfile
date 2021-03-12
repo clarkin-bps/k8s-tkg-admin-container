@@ -17,7 +17,7 @@ LABEL tkg.version="1.2.1" \
 
 # Update container and install tools
 RUN apt-get update && \
-    apt-get install -y curl openssh-client nano dos2unix && \
+    apt-get install -y curl openssh-client nano dos2unix apt-transport-https && \
 	curl -L https://dl.bintray.com/larkinc/generic/tkg-kctl-tools.tar.gz | tar xvzf -  && \
 	chmod +x ./imgpkg && \
 	mv ./imgpkg /usr/local/bin/imgpkg && \
@@ -48,9 +48,8 @@ RUN apt-get update && \
 	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64 && \
 	chmod +x ./kind && \
 	mv ./kind /usr/local/bin/kind && \
-	curl https://baltocdn.com/helm/signing.asc | sudo apt-key add - && \
-	apt-get install apt-transport-https --yes && \
-	echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list && \
+	curl https://baltocdn.com/helm/signing.asc | apt-key add - && \
+	echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list && \
 	apt-get update && \
 	apt-get install helm && \
 	apt-get clean
