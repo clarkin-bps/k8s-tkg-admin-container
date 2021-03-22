@@ -48,6 +48,9 @@ RUN apt-get update && \
 	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.10.0/kind-linux-amd64 && \
 	chmod +x ./kind && \
 	mv ./kind /usr/local/bin/kind && \
+	curl -Lo ./kp https://github.com/vmware-tanzu/kpack-cli/releases/download/v0.2.0/kp-linux-0.2.0 && \
+	chmod +x ./kp && \
+	mv ./kp /usr/local/bin/kp && \
 	curl https://baltocdn.com/helm/signing.asc | apt-key add - && \
 	echo "deb https://baltocdn.com/helm/stable/debian/ all main" | tee /etc/apt/sources.list.d/helm-stable-debian.list && \
 	apt-get update && \
