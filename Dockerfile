@@ -18,11 +18,13 @@ LABEL tanzu.version="1.3.0" \
 	  description="Ubuntu with tanzu and kubernetes cli tools"
 	  
 # Add tanzu tools 
-ADD https://drive.google.com/u/0/uc?export=download&confirm=1zsa&id=14lGg3mf4E23fFKJPngWoOy7TI9dcMW5W ./tanzu_tools.tar.gz 
+ADD scripts scripts
 
 # Update container and install tools
 RUN apt-get update && \
-    apt-get install -y curl openssh-client nano dos2unix apt-transport-https gnupg2 && \
+	apt-get install -y curl openssh-client nano dos2unix apt-transport-https gnupg2 && \
+	chmod +x ./scripts/tanzu_tools_download.sh && \
+	bash ./scripts/tanzu_tools_download.sh && \
 	tar xvzf ./tanzu_tools.tar.gz && \
 	rm ./tanzu_tools.tar.gz && \
 	chmod +x ./kubectl && \
@@ -37,7 +39,7 @@ RUN apt-get update && \
 	install ./cli/kbld /usr/local/bin/kbld && \
 	chmod +x ./cli/ytt && \
 	install ./cli/ytt /usr/local/bin/ytt && \
-    install ./cli/core/v1.3.0/tanzu-core-linux_amd64 /usr/local/bin/tanzu && \
+	install ./cli/core/v1.3.0/tanzu-core-linux_amd64 /usr/local/bin/tanzu && \
 	tanzu plugin clean && \
 	tanzu plugin install --local ./cli all && \
 	tanzu plugin list && \
