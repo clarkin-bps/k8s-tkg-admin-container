@@ -2,8 +2,8 @@ FROM ubuntu:latest
 Maintainer Chad Larkin <clarkin@basspro.com>
 
 # Metadata
-LABEL tkg.version="1.2.1" \
-	  kubectl.version="1.19.3" \
+LABEL tanzu.version="1.3.0" \
+	  kubectl.version="1.20.4" \
 	  kube-linter.version="0.1.6" \
 	  kubens.version="0.9.1" \
 	  kubectx.version="0.9.1" \
@@ -13,24 +13,34 @@ LABEL tkg.version="1.2.1" \
 	  ytt.version="0.30.0" \
 	  istioctl.version="1.8.2" \
 	  clusterctl.version="0.3.13" \
-	  description="Ubuntu with tkg and kubernetes cli tools"
+	  valero.version="1.5.3" \
+	  crashd.version="0.3.2" \
+	  description="Ubuntu with tanzu and kubernetes cli tools"
+	  
+# Add tanzu tools 
+ADD https://drive.google.com/u/0/uc?export=download&confirm=1zsa&id=14lGg3mf4E23fFKJPngWoOy7TI9dcMW5W ./tanzu_tools.tar.gz 
 
 # Update container and install tools
 RUN apt-get update && \
     apt-get install -y curl openssh-client nano dos2unix apt-transport-https gnupg2 && \
-	curl -L https://dl.bintray.com/larkinc/generic/tkg-kctl-tools.tar.gz | tar xvzf -  && \
-	chmod +x ./imgpkg && \
-	mv ./imgpkg /usr/local/bin/imgpkg && \
-	chmod +x ./kapp && \
-	mv ./kapp /usr/local/bin/kapp && \
-	chmod +x ./kbld && \
-	mv ./kbld /usr/local/bin/kbld && \
+	tar xvzf ./tanzu_tools.tar.gz && \
+	rm ./tanzu_tools.tar.gz && \
 	chmod +x ./kubectl && \
-	mv ./kubectl /usr/local/bin/kubectl && \
-	chmod +x ./tkg && \
-	mv ./tkg /usr/local/bin/tkg && \
-	chmod +x ./ytt && \
-	mv ./ytt /usr/local/bin/ytt && \
+	install ./kubectl /usr/local/bin/kubectl && \
+	chmod +x ./velero && \
+	install ./velero /usr/local/bin/velero && \
+	chmod +x ./cli/imgpkg && \
+	install ./cli/imgpkg /usr/local/bin/imgpkg && \
+	chmod +x ./cli/kapp && \
+	install ./cli/kapp /usr/local/bin/kapp && \
+	chmod +x ./cli/kbld && \
+	install ./cli/kbld /usr/local/bin/kbld && \
+	chmod +x ./cli/ytt && \
+	install ./cli/ytt /usr/local/bin/ytt && \
+    install ./cli/core/v1.3.0/tanzu-core-linux_amd64 /usr/local/bin/tanzu && \
+	tanzu plugin clean && \
+	tanzu plugin install --local ./cli all && \
+	tanzu plugin list && \
 	curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.13/clusterctl-linux-amd64 -o clusterctl && \
 	chmod +x ./clusterctl && \
 	mv ./clusterctl /usr/local/bin/clusterctl && \
