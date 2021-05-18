@@ -40,7 +40,7 @@ RUN apt-get update && \
 	install ./cli/kbld /usr/local/bin/kbld && \
 	chmod +x ./cli/ytt && \
 	install ./cli/ytt /usr/local/bin/ytt && \
-	install ./cli/core/v1.3.0/tanzu-core-linux_amd64 /usr/local/bin/tanzu && \
+	install ./cli/core/v1.3.1/tanzu-core-linux_amd64 /usr/local/bin/tanzu && \
 	tanzu plugin clean && \
 	tanzu plugin install --local ./cli all && \
 	tanzu plugin list && \
