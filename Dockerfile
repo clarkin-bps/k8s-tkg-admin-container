@@ -3,18 +3,19 @@ Maintainer Chad Larkin <clarkin@basspro.com>
 
 # Metadata
 LABEL tanzu.version="1.3.0" \
-	  kubectl.version="1.20.4" \
+	  kubectl.version="1.20.5" \
 	  kube-linter.version="0.1.6" \
 	  kubens.version="0.9.1" \
 	  kubectx.version="0.9.1" \
 	  imgpkg.version="0.2.0" \
-	  kbld.version="0.24.0" \
-	  kapp.version="0.33.0" \
-	  ytt.version="0.30.0" \
+	  kbld.version="0.28.0" \
+	  kapp.version="0.36.0" \
+	  ytt.version="0.31.0" \
 	  istioctl.version="1.8.2" \
 	  clusterctl.version="0.3.13" \
-	  valero.version="1.5.3" \
+	  valero.version="1.5.4" \
 	  crashd.version="0.3.2" \
+	  vendir.version="0.18.0" \
 	  description="Ubuntu with tanzu and kubernetes cli tools"
 	  
 # Add tanzu tools 
